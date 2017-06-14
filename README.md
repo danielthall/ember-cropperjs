@@ -1,27 +1,22 @@
 # ember-cropperjs
 
-This README outlines the details of collaborating on this Ember addon.
+This addon provides a wrapper around [CropperJS](https://github.com/fengyuanchen/cropperjs) as well as two yielded components for handling events and programatically calling methods on the cropper instance.
 
-## Installation
+```hbs
+{{#image-cropper
+  source='sinbad2_800x600.jpg'
+  options=(hash
+    aspectRatio=1
+    viewMode=2
+  ) as |cropper|}}
 
-* `git clone <repository-url>` this repository
-* `cd ember-cropperjs`
-* `npm install`
-* `bower install`
+  {{cropper.on 'crop' action=(action 'crop')}}
 
-## Running
+{{/image-cropper}}
+```
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+To Install:
 
-## Running Tests
-
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+```no-highlight
+ember install ember-cropperjs
+```

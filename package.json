@@ -1,12 +1,17 @@
 {
   "name": "ember-cropperjs",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Ember wrapper around vanilla cropperjs",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-cropperjs",
+    "cropperjs",
+    "image",
+    "crop",
+    "cropping"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Daniel T. Hall <daniel.hall@toyotaconnected.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -18,7 +23,11 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "^5.1.7"
+    "broccoli-funnel": "^1.2.0",
+    "broccoli-merge-trees": "^2.0.0",
+    "cropperjs": "^1.0.0-rc.2",
+    "ember-cli-babel": "^5.1.7",
+    "ember-cli-htmlbars": "^1.2.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
@@ -46,5 +55,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "main": "index.js"
 }

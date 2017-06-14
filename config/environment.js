@@ -2,5 +2,10 @@
 'use strict';
 
 module.exports = function(/* environment, appConfig */) {
-  return { };
+  return {
+    contentSecurityPolicyHeader: 'Content-Security-Policy',
+    contentSecurityPolicy: {
+      'img-src': "'self' http://lorempixel.com"
+    },
+  };
 };

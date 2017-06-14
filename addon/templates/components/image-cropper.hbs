@@ -1,0 +1,9 @@
+<img id={{concat 'image-cropper-' elementId}} src={{source}} alt="">
+
+{{#if cropper}}
+  {{yield (hash
+    cropper=cropper
+    call=(component 'image-cropper-call' obj=cropper)
+    on=(component 'image-cropper-on' cropper=cropper eventSource=cropper.element)
+  )}}
+{{/if}}

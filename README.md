@@ -2,6 +2,13 @@
 
 This addon provides a wrapper around [CropperJS](https://github.com/fengyuanchen/cropperjs) as well as two yielded components for handling events and programatically calling methods on the cropper instance.
 
+To Install:
+
+```no-highlight
+ember install ember-cropperjs
+```
+
+## Usage
 ```hbs
 {{#image-cropper
   source='sinbad2_800x600.jpg'
@@ -15,8 +22,6 @@ This addon provides a wrapper around [CropperJS](https://github.com/fengyuanchen
 {{/image-cropper}}
 ```
 
-To Install:
+Note: Any options available from CropperJS are available to be passed in to the options hash. There seems to be an issue with Cropper processing Ember's Empty Object, so the `components/image-cropper.js` file copies the options object as a work around.
 
-```no-highlight
-ember install ember-cropperjs
-```
+

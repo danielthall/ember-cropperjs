@@ -18,8 +18,15 @@ export default Component.extend({
   cropper: null,
   options: null,
 
-  didInsertElement() {
+  didReceiveAttrs() {
     this._super(...arguments);
+
+    let cropper = get(this, 'cropper');
+
+    if (cropper) {
+      cropper.destroy();
+      set(this, 'cropper', null);
+    }
 
     run.scheduleOnce('afterRender', this, this._setup);
   },

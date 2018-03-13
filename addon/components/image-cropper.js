@@ -32,14 +32,16 @@ export default Component.extend({
   },
 
   _setup() {
-    const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
-    const options = get(this, 'options');
+   if (window && window.document) {
+      const image = window.document.getElementById(`image-cropper-${get(this, 'elementId')}`);
+      const options = get(this, 'options');
 
-    // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
-    const opts = copy(options);
+      // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
+      const opts = copy(options);
 
-    const cropper = new Cropper(image, opts);
+      const cropper = new Cropper(image, opts);
 
-    return set(this, 'cropper', cropper);
+      return set(this, 'cropper', cropper);
+    }
   }
 });

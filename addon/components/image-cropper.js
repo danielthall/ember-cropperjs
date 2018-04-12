@@ -56,18 +56,20 @@ export default Component.extend({
       set(this, '_prevSource', source);
     }
 
-    // Diff the `options` hash for changes
     const options = get(this, 'options');
 
-    for (let i = 0; i < Object.keys(OPT_UPDATE_METHODS).length; i++) {
-      const opt = Object.keys(OPT_UPDATE_METHODS)[i];
+    if (options) {
+      // Diff the `options` hash for changes
+      for (let i = 0; i < Object.keys(OPT_UPDATE_METHODS).length; i++) {
+        const opt = Object.keys(OPT_UPDATE_METHODS)[i];
 
-      if (compare(options[opt], this._prevOptions[opt]) !== 0) {
-        _cropper[OPT_UPDATE_METHODS[opt]](options[opt]);
+        if (compare(options[opt], this._prevOptions[opt]) !== 0) {
+          _cropper[OPT_UPDATE_METHODS[opt]](options[opt]);
+        }
       }
-    }
 
-    set(this, '_prevOptions', copy(options));
+      set(this, '_prevOptions', copy(options));
+    }
   },
 
   willDestroyElement() {

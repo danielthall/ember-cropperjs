@@ -61,8 +61,11 @@ const ImageCropperOnComponent = Component.extend({
       return;
     }
 
-    // TODO: Convert to closure action
-    this.sendAction('action', this.cropper, ...arguments);
+    const { action } = this;
+
+    if (action) {
+      action(this.cropper, ...arguments);
+    }
   }
 });
 

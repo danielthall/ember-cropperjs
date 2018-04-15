@@ -27,8 +27,7 @@ const ImageCropperCallComponent = Component.extend({
     assert('image-cropper-call func is required and must be a string', typeof func === 'string');
     assert(`image-cropper-call ${func} must be a function on ${obj}`, typeof obj[func] === 'function');
 
-    // TODO: Convert to closure action
-    this.sendAction('onResp', obj[func].apply(obj, args));
+    this.sendAction('onResp', obj[func].apply(obj, args)); // eslint-disable-line ember/closure-actions
   }
 });
 

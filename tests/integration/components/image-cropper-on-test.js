@@ -10,48 +10,52 @@ moduleForComponent('image-cropper-on', 'Integration | Component | image cropper 
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it passes the cropper instance and arguments to the provided action as arguments', function(assert) {
   const done = assert.async();
 
-  const event = {};
+  const cropper = { name: 'cropper-instance' };
 
+  this.set('cropper', cropper);
   this.set('eventSource', {
-    on(eventName, cb) {
+    addEventListener(eventName, cb) {
       assert.equal(eventName, 'crop', 'subscribes to lowercased event name');
 
-      run.next(cb, event);
+      run.next(cb, 'crop');
     },
 
-    off() {}
+    removeEventListener() {}
   });
 
-  this.on('onEvent', (ev) => {
-    assert.equal(ev, event, 'sends event to the action');
+  this.on('onEvent', (instance, args) => {
+    assert.equal(instance, cropper, 'expected cropper instance to be returned');
+    assert.equal(args, 'crop', 'sends event to the action');
     done();
   });
 
-  this.render(hbs`{{image-cropper-on eventSource=eventSource event='crop' action=(action 'onEvent')}}`);
+  this.render(hbs`{{image-cropper-on eventSource=eventSource event='crop' action=(action 'onEvent') cropper=cropper}}`);
 });
 
-test('it works with positionalParams', function(assert) {
+test('it passes the cropper instance and arguments to the provided action as arguments with positionalParams', function(assert) {
   const done = assert.async();
 
-  const event = {};
+  const cropper = { name: 'cropper-instance' };
 
+  this.set('cropper', cropper);
   this.set('eventSource', {
-    on(eventName, cb) {
+    addEventListener(eventName, cb) {
       assert.equal(eventName, 'crop', 'subscribes to lowercased event name');
 
-      run.next(cb, event);
+      run.next(cb, 'crop');
     },
 
-    off() {}
+    removeEventListener() {}
   });
 
-  this.on('onEvent', (ev) => {
-    assert.equal(ev, event, 'sends event to the action');
+  this.on('onEvent', (instance, args) => {
+    assert.equal(instance, cropper, 'expected cropper instance to be returned');
+    assert.equal(args, 'crop', 'sends event to the action');
     done();
   });
 
-  this.render(hbs`{{image-cropper-on 'crop' (action 'onEvent') eventSource=eventSource}}`);
+  this.render(hbs`{{image-cropper-on 'crop' (action 'onEvent') eventSource=eventSource cropper=cropper}}`);
 });

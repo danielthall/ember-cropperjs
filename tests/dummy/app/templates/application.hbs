@@ -1,11 +1,11 @@
 {{#image-cropper
-  source='sinbad2_800x600.jpg'
+  source=source
   options=(hash
-    aspectRatio=1
+    aspectRatio=aspectRatio
     viewMode=2
     dragMode='move'
-    cropBoxMovable=false
-    cropBoxResizable=false
+    cropBoxMovable=true
+    cropBoxResizable=true
     minContainerWidth=200
     minContainerHeight=200
     autoCropArea=1
@@ -13,3 +13,7 @@
 
   {{cropper.on 'crop' action=(action 'crop')}}
 {{/image-cropper}}
+
+{{input type='number' value=aspectRatio}}
+<button {{action 'sinbadd'}}>Sinbadd</button>
+<button {{action 'sinbad'}}>Sinbad</button>

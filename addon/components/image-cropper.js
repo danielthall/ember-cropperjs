@@ -73,8 +73,14 @@ export default Component.extend({
   },
 
   _setup() {
+    const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
+    const options = get(this, 'options');
+
+    // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
+    const opts = copy(options);
+
     setProperties(this, {
-      _cropper: new Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), get(this, 'options')),
+      _cropper: new Cropper(image, opts),
       _prevOptions: copy(get(this, 'options')),
       _prevSource: copy(get(this, 'source'))
     });

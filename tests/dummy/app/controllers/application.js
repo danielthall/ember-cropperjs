@@ -1,11 +1,7 @@
 /* eslint-disable */
-import Ember from 'ember';
+import { set, get } from '@ember/object';
 
-const {
-  get,
-  set,
-  Controller
-} = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   aspectRatio: 1,

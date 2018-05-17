@@ -1,14 +1,8 @@
-import Ember from 'ember';
-
-const {
-  assert,
-  Component,
-  computed,
-  get,
-  getProperties,
-  isPresent,
-  run
-} = Ember;
+import { assert } from '@ember/debug';
+import Component from '@ember/component';
+import { getProperties, get, computed } from '@ember/object';
+import { isPresent } from '@ember/utils';
+import { run } from '@ember/runloop';
 
 const ImageCropperOnComponent = Component.extend({
   tagName: '',
@@ -67,7 +61,11 @@ const ImageCropperOnComponent = Component.extend({
       return;
     }
 
-    this.sendAction('action', this.cropper, ...arguments);
+    const { action } = this;
+
+    if (action) {
+      action(this.cropper, ...arguments);
+    }
   }
 });
 

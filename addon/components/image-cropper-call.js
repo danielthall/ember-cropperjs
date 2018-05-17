@@ -1,10 +1,6 @@
-import Ember from 'ember';
-
-const {
-  assert,
-  Component,
-  getProperties
-} = Ember;
+import { assert } from '@ember/debug';
+import Component from '@ember/component';
+import { getProperties } from '@ember/object';
 
 const ImageCropperCallComponent = Component.extend({
   tagName: '',
@@ -31,7 +27,7 @@ const ImageCropperCallComponent = Component.extend({
     assert('image-cropper-call func is required and must be a string', typeof func === 'string');
     assert(`image-cropper-call ${func} must be a function on ${obj}`, typeof obj[func] === 'function');
 
-    this.sendAction('onResp', obj[func].apply(obj, args));
+    this.sendAction('onResp', obj[func].apply(obj, args)); // eslint-disable-line ember/closure-actions
   }
 });
 

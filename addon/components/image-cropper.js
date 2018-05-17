@@ -1,19 +1,10 @@
-import Ember from 'ember';
+import { scheduleOnce } from '@ember/runloop';
+import Component from '@ember/component';
+import { copy } from '@ember/object/internals';
+import { setProperties, set, get } from '@ember/object';
+import { compare } from '@ember/utils';
 import layout from '../templates/components/image-cropper';
 import Cropper from 'cropperjs'
-
-const {
-  Component,
-  copy,
-  get,
-  set,
-  setProperties,
-  compare
-} = Ember;
-
-const {
-  scheduleOnce
-} = Ember.run;
 
 // Properties that do not require a new Cropper instance, rather just need to call
 // a method on the existing instance

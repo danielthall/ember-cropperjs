@@ -4,13 +4,47 @@ import { getProperties, get, computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
 import { run } from '@ember/runloop';
 
+/**
+  A component used for responding to cropper events. Typically used via the image-cropper
+  contextual component with positional parameters like so:
+
+  ```hbs
+  {{#image-cropper
+    alt='sinbad'
+    source='sinbad.jpg'
+    options=(hash
+      viewMode=2
+      width=256
+      height=256)
+  as |cropper|}}
+
+  {{cropper.on 'crop' (action 'cropImage')}}
+
+  {{/image-cropper}}
+  ```
+  @class ImageCropperOn
+  @public
+*/
 const ImageCropperOnComponent = Component.extend({
   tagName: '',
 
   cropper: null,
 
   eventSource: null,
+  /**
+    The [event from CropperJS](https://github.com/fengyuanchen/cropperjs#events) to listen for.
+
+    @argument event
+    @type String
+  */
   event: null,
+
+  /**
+    The action to call when the event is triggered.
+
+    @argument action
+    @type Action
+  */
   action: null,
 
   _prevEvent: null,

@@ -15,10 +15,7 @@
   "directories": {
     "test": "tests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danielthall/ember-cropperjs.git"
-  },
+  "repository": "https://github.com/danielthall/ember-cropperjs",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",

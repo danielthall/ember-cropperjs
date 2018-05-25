@@ -3,8 +3,11 @@
 
 module.exports = function(deployTarget) {
   let ENV = {
-    build: {}
-    // include other plugin configuration that applies to all deploy targets here
+    build: {},
+    git: {
+      // include other plugin configuration that applies to all deploy targets here
+      repo: 'git@github.com:danielthall/ember-cropperjs.git'
+    }
   };
 
   if (deployTarget === 'development') {

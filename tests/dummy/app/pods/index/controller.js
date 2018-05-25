@@ -8,11 +8,5 @@ export default Controller.extend({
   cropBoxMovable: true,
   cropBoxResizable: true,
 
-  source: 'sinbad2_800x600.jpg',
-
-  actions: {
-    crop(cropper, e) {
-      console.log('crop action fired!');
-    }
-  }
+  source: 'sinbad2_800x600.jpg'
 });

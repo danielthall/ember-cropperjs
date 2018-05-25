@@ -49,7 +49,7 @@ export default Component.extend({
   alt: '',
 
   /**
-    The image to crop.
+    The image source to crop.
 
     @argument source
     @type String
@@ -57,7 +57,7 @@ export default Component.extend({
   source: null,
 
   /**
-    The options to pass down to the CropperJS instance. Use [cropperJS options](https://github.com/fengyuanchen/cropperjs#options)
+    The options to pass down to the Cropper.js instance. Use [Cropper.js options](https://github.com/fengyuanchen/cropperjs#options)
     for reference.
 
     @argument options

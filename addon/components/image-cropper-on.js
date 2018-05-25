@@ -32,7 +32,7 @@ const ImageCropperOnComponent = Component.extend({
 
   eventSource: null,
   /**
-    The [event from CropperJS](https://github.com/fengyuanchen/cropperjs#events) to listen for.
+    The [event from Cropper.js](https://github.com/fengyuanchen/cropperjs#events) to listen for.
 
     @argument event
     @type String

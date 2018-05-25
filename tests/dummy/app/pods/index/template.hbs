@@ -2,9 +2,9 @@
 
 {{docs-hero
   logo='ember'
-  slimHeading='cropper'
+  slimHeading='Cropper'
   strongHeading='JS'
-  byline='An add-on wrapping Cropper.JS'}}
+  byline='An add-on wrapping Cropper.js'}}
 
 {{#docs-demo as |demo|}}
   {{#demo.example name='docs-demo-basic.hbs'}}
@@ -20,13 +20,11 @@
         minContainerHeight=200
         autoCropArea=1
       ) as |cropper|}}
-
-      {{cropper.on 'crop' (action 'crop')}}
     {{/image-cropper}}
   {{/demo.example}}
 {{/docs-demo}}
 
-<div class='docs-container docs-md'>
+<div class='font-sans text-black leading-normal docs-container docs-md'>
   <section class='max-w-md mx-auto pb-8'>
     {{index/index-content}}
 

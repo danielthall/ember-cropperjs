@@ -1,0 +1,19 @@
+<div class='my-8'>
+  {{#docs-snippet name='image-cropper-demo.hbs'}}
+    {{#image-cropper
+      source='image-path.png'
+      options=(hash
+        aspectRatio=1
+        viewMode=2
+        dragMode='move'
+        cropBoxMovable=true
+        cropBoxResizable=false
+        minContainerWidth=200
+        minContainerHeight=200
+        autoCropArea=1
+      ) as |cropper|}}
+
+      {{!-- yielded content --}}
+    {{/image-cropper}}
+  {{/docs-snippet}}
+</div>

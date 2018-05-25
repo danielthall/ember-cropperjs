@@ -1,0 +1,37 @@
+{{docs-header}}
+
+{{docs-hero
+  logo='ember'
+  slimHeading='Cropper'
+  strongHeading='JS'
+  byline='An add-on wrapping Cropper.js'}}
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name='docs-demo-basic.hbs'}}
+    {{#image-cropper
+      source=source
+      options=(hash
+        aspectRatio=aspectRatio
+        viewMode=2
+        dragMode='move'
+        cropBoxMovable=cropBoxMovable
+        cropBoxResizable=cropBoxResizable
+        minContainerWidth=200
+        minContainerHeight=200
+        autoCropArea=1
+      ) as |cropper|}}
+    {{/image-cropper}}
+  {{/demo.example}}
+{{/docs-demo}}
+
+<div class='font-sans text-black leading-normal docs-container docs-md'>
+  <section class='max-w-md mx-auto pb-8'>
+    {{index/index-content}}
+
+    <div class="my-16 text-right">
+      {{#link-to 'docs' class='bg-grey-darkest hover:bg-black text-white py-2 px-4 no-underline rounded'}}
+        Read the docs →
+      {{/link-to}}
+    </div>
+  </section>
+</div>

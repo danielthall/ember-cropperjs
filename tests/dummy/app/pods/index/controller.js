@@ -8,5 +8,5 @@ export default Controller.extend({
   cropBoxMovable: true,
   cropBoxResizable: true,
 
-  source: 'sinbad2_800x600.jpg'
+  source: '/assets/images/sinbad2_800x600.jpg'
 });

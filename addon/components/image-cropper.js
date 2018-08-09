@@ -65,6 +65,8 @@ export default Component.extend({
   */
   options: null,
 
+  replaceHasSameSize: false,
+
   _cropper: null,
   _prevOptions: null,
   _prevSource: null,
@@ -79,6 +81,7 @@ export default Component.extend({
     this._super(...arguments);
 
     const _cropper = get(this, '_cropper');
+    const replaceHasSameSize = get(this, 'replaceHasSameSize');
 
     if (_cropper === null) {
       return;
@@ -88,7 +91,7 @@ export default Component.extend({
     if (compare(get(this, 'source'), get(this, '_prevSource')) !== 0) {
       const source = get(this, 'source');
 
-      _cropper.replace(source);
+      _cropper.replace(source, replaceHasSameSize);
       set(this, '_prevSource', source);
     }
 

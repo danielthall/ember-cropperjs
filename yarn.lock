@@ -2376,9 +2376,9 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cropperjs@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.0.0-rc.2.tgz#ce83113738a2d8ff284ba6d91599c3d6b9ae7c7d"
+cropperjs@~1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.4.1.tgz#41d9fcd87f9d9cd2e1dcf27c36680cac7a48cd6b"
 
 cross-spawn@^3.0.0:
   version "3.0.1"

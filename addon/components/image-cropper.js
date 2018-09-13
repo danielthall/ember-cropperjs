@@ -1,5 +1,5 @@
+import { assign } from '@ember/polyfills';
 import { compare } from '@ember/utils';
-import { copy } from '@ember/object/internals';
 import { scheduleOnce } from '@ember/runloop';
 import { setProperties, set, get } from '@ember/object';
 import Component from '@ember/component';
@@ -46,7 +46,7 @@ export default Component.extend({
     @argument alt
     @type String
   */
-  alt: '',
+  alt: null,
 
   /**
     The image source to crop.
@@ -102,7 +102,7 @@ export default Component.extend({
     if (OPTS_REQUIRE_NEW.some((opt) => compare(options[opt], this._prevOptions[opt]) !== 0)) {
       _cropper.destroy();
 
-      const opts = copy(options);
+      const opts = assign({}, options);
 
       setProperties(this, {
         _prevOptions: opts,
@@ -113,15 +113,13 @@ export default Component.extend({
     }
 
     // Diff the `options` hash for changes
-    for (let i = 0; i < Object.keys(OPT_UPDATE_METHODS).length; i++) {
-      const opt = Object.keys(OPT_UPDATE_METHODS)[i];
-
+    for (const opt in OPT_UPDATE_METHODS) {
       if (compare(options[opt], this._prevOptions[opt]) !== 0) {
         _cropper[OPT_UPDATE_METHODS[opt]](options[opt]);
       }
     }
 
-    set(this, '_prevOptions', copy(options));
+    set(this, '_prevOptions', assign({}, options));
   },
 
   willDestroyElement() {
@@ -138,12 +136,12 @@ export default Component.extend({
     const options = get(this, 'options');
 
     // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
-    const opts = copy(options);
+    const opts = assign({}, options);
 
     setProperties(this, {
       _cropper: new Cropper(image, opts),
-      _prevOptions: copy(get(this, 'options')),
-      _prevSource: copy(get(this, 'source'))
+      _prevOptions: assign({}, get(this, 'options')),
+      _prevSource: get(this, 'source')
     });
   }
 });

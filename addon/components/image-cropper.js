@@ -1,6 +1,6 @@
 import { assign } from '@ember/polyfills';
 import { compare } from '@ember/utils';
-import { scheduleOnce } from '@ember/runloop';
+import { join, scheduleOnce } from '@ember/runloop';
 import { setProperties, set, get } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../templates/components/image-cropper';
@@ -74,7 +74,7 @@ export default Component.extend({
 
     import('cropperjs').then((module) => {
       this._Cropper = module.default;
-      this._setup();
+      join(() => this._setup());
     });
   },
 

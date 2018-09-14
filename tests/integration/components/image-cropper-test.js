@@ -9,7 +9,7 @@ module('Integration | Component | image cropper', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.before(function() {
-    this.sandbox = Sinon.sandbox.create();
+    this.sandbox = Sinon.createSandbox();
   });
 
   hooks.afterEach(function() {

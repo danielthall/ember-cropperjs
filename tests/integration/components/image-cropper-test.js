@@ -1,15 +1,17 @@
 import { module, test } from 'qunit';
 import { render, find } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
-import Cropper from 'cropperjs'
 import hbs from 'htmlbars-inline-precompile';
 import Sinon from 'sinon';
 
 module('Integration | Component | image cropper', function(hooks) {
   setupRenderingTest(hooks);
 
-  hooks.before(function() {
+  hooks.before(async function() {
     this.sandbox = Sinon.createSandbox();
+
+    const module = await import('cropperjs');
+    this.Cropper = module.default;
   });
 
   hooks.afterEach(function() {
@@ -25,7 +27,7 @@ module('Integration | Component | image cropper', function(hooks) {
   // TODO: Replace these with import OPT_UPDATE_METHODS and OPTS_REQUIRE_NEW
   //       and looping in a single test instead.
   test('it calls cropper.replace() when the source changes', async function(assert) {
-    const replaceSpy = this.sandbox.spy(Cropper.prototype, 'replace');
+    const replaceSpy = this.sandbox.spy(this.Cropper.prototype, 'replace');
 
     this.set('source', 'source');
 
@@ -40,7 +42,7 @@ module('Integration | Component | image cropper', function(hooks) {
   });
 
   test('it calls cropper.replace() when the source changes', async function(assert) {
-    const replaceSpy = this.sandbox.spy(Cropper.prototype, 'replace');
+    const replaceSpy = this.sandbox.spy(this.Cropper.prototype, 'replace');
 
     this.set('source', 'source');
 
@@ -55,7 +57,7 @@ module('Integration | Component | image cropper', function(hooks) {
   });
 
   test('it calls cropper.setAspectRatio() when the options.aspectRatio changes', async function(assert) {
-    const spy = this.sandbox.spy(Cropper.prototype, 'setAspectRatio');
+    const spy = this.sandbox.spy(this.Cropper.prototype, 'setAspectRatio');
 
     this.set('options', {
       aspectRatio: 2
@@ -74,7 +76,7 @@ module('Integration | Component | image cropper', function(hooks) {
   });
 
   test('it constructs a new cropper instance when options.cropBoxMovable changes', async function(assert) {
-    const spy = this.sandbox.spy(Cropper.prototype, 'init');
+    const spy = this.sandbox.spy(this.Cropper.prototype, 'init');
 
     this.set('options', {
       cropBoxMovable: false
@@ -92,7 +94,7 @@ module('Integration | Component | image cropper', function(hooks) {
   });
 
   test('it constructs a new cropper instance when options.cropBoxMovable changes', async function(assert) {
-    const spy = this.sandbox.spy(Cropper.prototype, 'init');
+    const spy = this.sandbox.spy(this.Cropper.prototype, 'init');
 
     this.set('options', {
       cropBoxMovable: false

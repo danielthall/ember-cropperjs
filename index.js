@@ -1,20 +1,25 @@
 'use strict';
 
-const Funnel = require('broccoli-funnel');
-const MergeTrees = require('broccoli-merge-trees');
-const Path = require('path');
-
 module.exports = {
   name: 'ember-cropperjs',
 
+  options: {
+    babel: {
+      plugins: [
+        // Ensure that `ember-auto-import` can handle the dynamic imports
+        require('ember-auto-import/babel-plugin')
+      ]
+    }
+  },
+
   treeForStyles(tree) {
-    var cropperJSTree = new Funnel(Path.join(this.project.root, 'node_modules', 'cropperjs/dist'), {
+    var cropperJSTree = require('broccoli-funnel')(require('path').dirname(require.resolve('cropperjs')), {
       files: ['cropper.css'],
       destDir: 'app/styles'
     });
 
     if (tree) {
-      return new MergeTrees([ tree, cropperJSTree ]);
+      return require('broccoli-merge-trees')([ tree, cropperJSTree ]);
     }
 
     return cropperJSTree;

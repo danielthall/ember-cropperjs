@@ -1,9 +1,8 @@
 import { assign } from '@ember/polyfills';
 import { compare } from '@ember/utils';
-import { scheduleOnce } from '@ember/runloop';
+import { join, scheduleOnce } from '@ember/runloop';
 import { setProperties, set, get } from '@ember/object';
 import Component from '@ember/component';
-import Cropper from 'cropperjs';
 import layout from '../templates/components/image-cropper';
 
 // Properties that do not require a new Cropper instance, rather just need to call
@@ -65,9 +64,19 @@ export default Component.extend({
   */
   options: null,
 
+  _Cropper: null,
   _cropper: null,
   _prevOptions: null,
   _prevSource: null,
+
+  init() {
+    this._super(...arguments);
+
+    import('cropperjs').then((module) => {
+      this._Cropper = module.default;
+      join(() => this._setup());
+    });
+  },
 
   didInsertElement() {
     this._super(...arguments);
@@ -78,9 +87,9 @@ export default Component.extend({
   didUpdateAttrs() {
     this._super(...arguments);
 
-    const _cropper = get(this, '_cropper');
+    const { _cropper } = this;
 
-    if (_cropper === null) {
+    if (_cropper === null || this._Cropper === null) {
       return;
     }
 
@@ -106,7 +115,7 @@ export default Component.extend({
 
       setProperties(this, {
         _prevOptions: opts,
-        _cropper: new Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), opts)
+        _cropper: new this._Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), opts)
       });
 
       return;
@@ -132,6 +141,10 @@ export default Component.extend({
   },
 
   _setup() {
+    if (this.isDestroyed || this.isDestroying || !this.element || this._Cropper === null || this._cropper !== null) {
+      return;
+    }
+
     const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
     const options = get(this, 'options');
 
@@ -139,8 +152,8 @@ export default Component.extend({
     const opts = assign({}, options);
 
     setProperties(this, {
-      _cropper: new Cropper(image, opts),
-      _prevOptions: assign({}, get(this, 'options')),
+      _cropper: new this._Cropper(image, opts),
+      _prevOptions: opts,
       _prevSource: get(this, 'source')
     });
   }

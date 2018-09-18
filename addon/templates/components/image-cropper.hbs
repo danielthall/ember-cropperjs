@@ -1,4 +1,8 @@
-<img id={{concat "image-cropper-" elementId}} src={{source}} alt={{alt}}>
+<img
+  id={{concat "image-cropper-" elementId}}
+  style='max-width: 100%;'
+  src={{source}}
+  alt={{alt}}>
 
 {{#if _cropper}}
   {{yield

@@ -28,6 +28,32 @@ Usage
 {{/image-cropper}}
 ```
 
+```js
+import { debounce } from '@ember/runloop';
+// ...other imports
+
+// ...in a controller or component
+export default Controller.extend({
+  _updateFileBlob(cropper) {
+    return cropper.getCroppedCanvas({
+      // any additional options
+      maxWidth: 512,
+      maxHeight: 512
+    }).toBlob((blob) => {
+      // do something with the blob:
+      // common examples include `blob.readAsDataURL()` or `blob.readAsArrayBuffer()`
+    });
+  },
+
+  actions: {
+    crop(cropper) {
+      // debounce is optional
+      debounce(this, this._updateFileBlob, cropper, 100);
+    },
+  }
+})
+```
+
 Note: Any options available from Cropper.js are available to be passed in to the options hash. There seems to be an issue with Cropper processing Ember's Empty Object, so the `components/image-cropper.js` file copies the options object as a work around.
 
 

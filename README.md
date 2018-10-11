@@ -64,12 +64,12 @@ Contributing
 
 * `git clone <repository-url>`
 * `cd my-addon`
-* `npm install`
+* `yarn`
 
 ### Linting
 
-* `npm run lint:js`
-* `npm run lint:js --fix`
+* `yarn run lint:js`
+* `yarn run lint:js -- --fix`
 
 ### Running tests
 

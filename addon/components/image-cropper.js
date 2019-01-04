@@ -144,17 +144,18 @@ export default Component.extend({
     if (this.isDestroyed || this.isDestroying || !this.element || this._Cropper === null || this._cropper !== null) {
       return;
     }
+    if (window && window.document) {
+      const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
+      const options = get(this, 'options');
 
-    const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
-    const options = get(this, 'options');
+      // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
+      const opts = assign({}, options);
 
-    // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
-    const opts = assign({}, options);
-
-    setProperties(this, {
-      _cropper: new this._Cropper(image, opts),
-      _prevOptions: opts,
-      _prevSource: get(this, 'source')
-    });
+      setProperties(this, {
+        _cropper: new this._Cropper(image, opts),
+        _prevOptions: opts,
+        _prevSource: get(this, 'source')
+      });
+    }
   }
 });

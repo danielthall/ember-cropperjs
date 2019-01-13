@@ -71,11 +71,13 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-
-    import('cropperjs').then((module) => {
-      this._Cropper = module.default;
-      join(() => this._setup());
-    });
+    
+    if (window && window.document) {
+      import('cropperjs').then((module) => {
+        this._Cropper = module.default;
+        join(() => this._setup());
+      });
+    }
   },
 
   didInsertElement() {
@@ -108,18 +110,21 @@ export default Component.extend({
     }
 
     // Requires to destroy and re-instantiate a new Cropper instance
-    if (OPTS_REQUIRE_NEW.some((opt) => compare(options[opt], this._prevOptions[opt]) !== 0)) {
-      _cropper.destroy();
+        if (window && window.document) {
+          if (OPTS_REQUIRE_NEW.some((opt) => compare(options[opt], this._prevOptions[opt]) !== 0)) {
+            _cropper.destroy();
 
-      const opts = assign({}, options);
+            const opts = assign({}, options);
 
-      setProperties(this, {
-        _prevOptions: opts,
-        _cropper: new this._Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), opts)
-      });
 
-      return;
-    }
+            setProperties(this, {
+              _prevOptions: opts,
+              _cropper: new this._Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), opts)
+            });
+
+            return;
+          }
+        }
 
     // Diff the `options` hash for changes
     for (const opt in OPT_UPDATE_METHODS) {

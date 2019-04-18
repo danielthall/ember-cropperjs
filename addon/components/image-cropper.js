@@ -14,7 +14,8 @@ const OPT_UPDATE_METHODS = {
 // Properties that require a completely new Cropper instance
 const OPTS_REQUIRE_NEW = [
   'cropBoxResizable',
-  'cropBoxMovable'
+  'cropBoxMovable',
+  'zoomable'
 ];
 
 /**
@@ -110,21 +111,52 @@ export default Component.extend({
     }
 
     // Requires to destroy and re-instantiate a new Cropper instance
-        if (window && window.document) {
-          if (OPTS_REQUIRE_NEW.some((opt) => compare(options[opt], this._prevOptions[opt]) !== 0)) {
-            _cropper.destroy();
+    if (window && window.document) {
+      if (OPTS_REQUIRE_NEW.some((opt) => compare(options[opt], this._prevOptions[opt]) !== 0)) {
+        // Note that .getData() will fail unless the cropper is already ready
+        const shouldRetainData = _cropper.ready;
+        const data = shouldRetainData ? _cropper.getData() : null;
+        const canvasData = shouldRetainData ? _cropper.getCanvasData() : null;
 
-            const opts = assign({}, options);
+        _cropper.destroy();
 
+        const opts = assign({}, options);
+        const source = get(this, 'source');
+        const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
+        const newCropper = new this._Cropper(image, opts)
 
-            setProperties(this, {
-              _prevOptions: opts,
-              _cropper: new this._Cropper(document.getElementById(`image-cropper-${get(this, 'elementId')}`), opts)
-            });
+        if (shouldRetainData) {
+          // Reset state that would be lost after re-initializing
+          const reloadData = function() {
+            newCropper.setCanvasData(canvasData);
 
-            return;
-          }
+            // According to the CropperJS docs, setData is only available if
+            // viewMode is 1 or greater
+            if (options.viewMode && options.viewMode >= 1) {
+              newCropper.setData(data);
+            }
+
+            // Only need to do this once!
+            image.removeEventListener("ready", reloadData, false);
+          };
+
+          // We use the event listener instead of CropperJS's ready shortcut,
+          // so that this doesn't override the options hash
+          image.addEventListener("ready", reloadData, false);
+
+          // Reload the image after init - this part shouldn't be in the ready
+          // callback
+          if (source) newCropper.replace(source);
         }
+
+        setProperties(this, {
+          _prevOptions: opts,
+          _cropper: newCropper
+        });
+
+        return;
+      }
+    }
 
     // Diff the `options` hash for changes
     for (const opt in OPT_UPDATE_METHODS) {

@@ -93,11 +93,11 @@ module('Integration | Component | image cropper', function(hooks) {
     assert.equal(spy.callCount, 2, 'spy.callCount after set');
   });
 
-  test('it constructs a new cropper instance when options.cropBoxMovable changes', async function(assert) {
+  test('it constructs a new cropper instance when options.zoomable changes', async function(assert) {
     const spy = this.sandbox.spy(this.Cropper.prototype, 'init');
 
     this.set('options', {
-      cropBoxMovable: false
+      zoomable: false
     });
 
     await render(hbs`{{image-cropper options=options}}`);
@@ -105,7 +105,7 @@ module('Integration | Component | image cropper', function(hooks) {
     assert.equal(spy.callCount, 1, 'spy.callCount before set');
 
     this.set('options', {
-      cropBoxMovable: true
+      zoomable: true
     });
 
     assert.equal(spy.callCount, 2, 'spy.callCount after set');

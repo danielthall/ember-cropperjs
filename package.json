@@ -29,9 +29,7 @@
     "cropperjs": "~1.4.1",
     "ember-auto-import": "^1.2.13",
     "ember-cli-babel": "^6.6.0",
-    "ember-cli-htmlbars": "^2.0.1",
-    "ember-cli-sass": "^8.0.1",
-    "sass": "^1.14.0"
+    "ember-cli-htmlbars": "^2.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

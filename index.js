@@ -12,22 +12,9 @@ module.exports = {
     }
   },
 
-  treeForStyles(tree) {
-    var cropperJSTree = require('broccoli-funnel')(require('path').dirname(require.resolve('cropperjs')), {
-      files: ['cropper.css'],
-      destDir: 'app/styles'
-    });
-
-    if (tree) {
-      return require('broccoli-merge-trees')([ tree, cropperJSTree ]);
-    }
-
-    return cropperJSTree;
-  },
-
   included(app) {
     this._super.included.apply(this, arguments);
 
-    app.import('app/styles/cropper.css');
+    app.import('node_modules/cropperjs/dist/cropper.css');
   }
 };

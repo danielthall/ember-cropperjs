@@ -1,15 +1,15 @@
 <img
-  id={{concat 'image-cropper-' elementId}}
+  id={{concat 'image-cropper-' this.elementId}}
   class='max-w-full'
-  src={{source}}
-  alt={{alt}}>
+  src={{this.source}}
+  alt={{this.alt}}>
 
-{{#if _cropper}}
+{{#if this._cropper}}
   {{yield
     (hash
-      cropper=_cropper
-      call=(component 'image-cropper-call' obj=_cropper)
-      on=(component 'image-cropper-on' cropper=_cropper eventSource=_cropper.element)
+      cropper=this._cropper
+      call=(component 'image-cropper-call' obj=this._cropper)
+      on=(component 'image-cropper-on' cropper=this._cropper eventSource=this._cropper.element)
     )
   }}
 {{/if}}

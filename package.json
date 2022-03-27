@@ -1,6 +1,6 @@
 {
   "name": "ember-cropperjs",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Ember wrapper around vanilla cropperjs",
   "keywords": [
     "ember-addon",

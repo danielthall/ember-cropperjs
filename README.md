@@ -16,42 +16,43 @@ Usage
 ------------------------------------------------------------------------------
 
 ```hbs
-{{#image-cropper
-  source='sinbad2_800x600.jpg'
-  options=(hash
-    aspectRatio=1
-    viewMode=2
-  ) as |cropper|}}
+{{! app/templates/application.hbs }}
 
-  {{cropper.on 'crop' action=(action 'crop')}}
-
-{{/image-cropper}}
+<ImageCropper
+  @source="sinbad2_800x600.jpg"
+  @options={{hash aspectRatio=1 viewMode=2}}
+  as |cropper|
+>
+  <cropper.on @event="crop" @action={{this.crop}} />
+</ImageCropper>
 ```
 
 ```js
+// app/controllers/application.ts
+
+import Controller from '@ember/controller';
 import { debounce } from '@ember/runloop';
-// ...other imports
+import { action } from '@ember/object';
 
-// ...in a controller or component
-export default Controller.extend({
+export default class ApplicationController extends Controller {
   _updateFileBlob(cropper) {
-    return cropper.getCroppedCanvas({
-      // any additional options
-      maxWidth: 512,
-      maxHeight: 512
-    }).toBlob((blob) => {
-      // do something with the blob:
-      // common examples include `blob.readAsDataURL()` or `blob.readAsArrayBuffer()`
-    });
-  },
-
-  actions: {
-    crop(cropper) {
-      // debounce is optional
-      debounce(this, this._updateFileBlob, cropper, 100);
-    },
+    return cropper
+      .getCroppedCanvas({
+        // any additional options
+        maxWidth: 512,
+        maxHeight: 512,
+      })
+      .toBlob((blob) => {
+        // do something with the blob:
+        // common examples include `blob.readAsDataURL()` or `blob.readAsArrayBuffer()`
+      });
   }
-})
+
+  @action crop(cropper) {
+    // debounce is optional
+    debounce(this, this._updateFileBlob, cropper, 100);
+  }
+}
 ```
 
 Note: Any options available from Cropper.js are available to be passed in to the options hash. There seems to be an issue with Cropper processing Ember's Empty Object, so the `components/image-cropper.js` file copies the options object as a work around.

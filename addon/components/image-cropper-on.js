@@ -2,7 +2,7 @@ import { assert } from '@ember/debug';
 import Component from '@ember/component';
 import { getProperties, get, computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { bind } from '@ember/runloop';
 
 /**
   A component used for responding to cropper events. Typically used via the image-cropper
@@ -52,7 +52,7 @@ const ImageCropperOnComponent = Component.extend({
   init() {
     this._super(...arguments);
 
-    this._boundOnEvent = run.bind(this, this._onEvent);
+    this._boundOnEvent = bind(this, this._onEvent);
   },
 
   _normalizedEvent: computed('event', function() {

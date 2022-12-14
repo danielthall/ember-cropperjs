@@ -7,7 +7,7 @@ module.exports = function(defaults) {
     babel: {
       plugins: [
         // Ensure that `ember-auto-import` can handle the dynamic imports
-        require('ember-auto-import/babel-plugin')
+        require.resolve('ember-auto-import/babel-plugin')
       ]
     }
   });
